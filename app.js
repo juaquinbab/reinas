@@ -481,7 +481,9 @@ app.post('/procesar', (req, res) => {
     setTimeout(async () => {
       try {
         if (MSGenvio) {
-          await sendMedia(phoneNumberWithSuffix, 'image.jpg');
+          await sendMedia(phoneNumberWithSuffix, 'image.jpg' );
+            await sendMedia(phoneNumberWithSuffix, '12.mp3' );
+         
         }
         await client.sendMessage(phoneNumberWithSuffix, message);
   
