@@ -1,3 +1,2 @@
-2024/09/19-18:19:50.707 8703 Reusing MANIFEST /Users/creativoscode/Documents/app/Reinas-/.wwebjs_auth/session-Client-one/Default/Local Storage/leveldb/MANIFEST-000001
-2024/09/19-18:19:50.708 8703 Recovering log #3
-2024/09/19-18:19:50.708 8703 Reusing old log /Users/creativoscode/Documents/app/Reinas-/.wwebjs_auth/session-Client-one/Default/Local Storage/leveldb/000003.log 
+2024/09/21-20:59:20.470 9f03 Creating DB /Users/creativoscode/Documents/app/Reinas-/.wwebjs_auth/session-Client-one/Default/Local Storage/leveldb since it was missing.
+2024/09/21-20:59:20.486 9f03 Reusing MANIFEST /Users/creativoscode/Documents/app/Reinas-/.wwebjs_auth/session-Client-one/Default/Local Storage/leveldb/MANIFEST-000001
