@@ -1,2 +1,3 @@
-2024/09/25-18:52:05.969 8a03 Creating DB /Users/creativoscode/Documents/app/Reinas-/.wwebjs_auth/session-Client-one/Default/Session Storage since it was missing.
-2024/09/25-18:52:05.976 8a03 Reusing MANIFEST /Users/creativoscode/Documents/app/Reinas-/.wwebjs_auth/session-Client-one/Default/Session Storage/MANIFEST-000001
+2024/09/25-19:28:03.149 8603 Reusing MANIFEST /Users/creativoscode/Documents/app/Reinas-/.wwebjs_auth/session-Client-one/Default/Session Storage/MANIFEST-000001
+2024/09/25-19:28:03.149 8603 Recovering log #3
+2024/09/25-19:28:03.149 8603 Reusing old log /Users/creativoscode/Documents/app/Reinas-/.wwebjs_auth/session-Client-one/Default/Session Storage/000003.log 
