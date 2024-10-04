@@ -7,7 +7,6 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 const multer = require('multer'); // Para manejar la carga de archivos
-const filePath = './numerosNo.json';
 
 const app = express();
 
@@ -34,15 +33,11 @@ app.get('/descargar', (req, res) => {
 
 const client = new Client({
   puppeteer: {
-    // executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
     handleSIGINT: false,
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   },
   authStrategy: new LocalAuth({ clientId: "Client-one" }),
-  // webVersionCache: {
-  //   type: 'remote',
-  //   remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2413.51-beta.html '
-  // }
+ 
 });
 
 
@@ -77,206 +72,140 @@ client.on('authenticated', (session) => {
 
 
 
-
-
   // const mediaFilemp3 = MessageMedia.fromFilePath(`./public/media/${'image.mp3'}`)
   // const mediaFilemp4 = MessageMedia.fromFilePath(`./public/media/${'image.mp4'}`)
- // const mediaFilejpg = MessageMedia.fromFilePath(`./public/media/${'1.png'}`)
+  const mediaFilejpg = MessageMedia.fromFilePath(`./public/media/${'1.png'}`)
 
 
 let MSGbien = null; // inicia el Mensaje de bienvenida
 let etapa = 0;
 
-// const registro = {
+const registro = {
 
-//   '573026084428@c.us': { etapa: 100, numeroDocumento: '' },
-//   '573125178454@c.us': { etapa: 100, numeroDocumento: '' },
-//   '573026084444@c.us': { etapa: 100, numeroDocumento: '' },
-//   '573164205039@c.us': { etapa: 100, numeroDocumento: '' },
+  '573217088282@c.us': { etapa: 0, numeroDocumento: '' },
+  '5213315185300@c.us': { etapa: 0, numeroDocumento: '' },
+  '573196693304@c.us': { etapa: 0, numeroDocumento: '' },
+  '573057739373@c.us': { etapa: 0, numeroDocumento: '' },
+  '5213343468550@c.us': { etapa: 0, numeroDocumento: '' },
+  '573102447244@c.us': { etapa: 0, numeroDocumento: '' },
+  '573023477836@c.us': { etapa: 0, numeroDocumento: '' }
 
-// }; // Registra los numeros telefono que inician al programa 
+}; // Registra los numeros telefono que inician al programa 
 
-// // setInterval(() => {
-// //   console.log(registro)
-// // }, 5000);
-
-
-// client.on('message', async (message) => {
-//   //console.log(`Mensaje recibido de ${message.from}: ${message.body}`);
-
+// setInterval(() => {
+//   console.log(registro)
+// }, 5000);
 
 
-
-//   // Este codigo verifica que ya se envio el mensaje de bienvenida
-//   if (!registro[message.from.toString()] && !message.from.toString().includes('@g.us') && !message.from.toString().includes('@g.us:')  ) {
-    
-//     client.sendMessage(message.from, 'Bienvenido a CrediMoviles! ✅\n\nTIENES UN CUPO PREAPROBADO PARA RENOVAR TU CELULAR SIN IMPORTAR QUE NO TENGAS VIDA CREDITICIA O ESTÉS REPORTADO📲 Estrena SOLO CON TU CÉDULA CUOTA INICIAL DEL EQUIPO DESDE $50 Mil PESOS.\n\n\n📍La cuota inicial la entregas cuando recibas tu equipo.\n\n🚨Cual marca de celular deseas estrenar🚨Escribe por favor el numero de tu marca a cotizar.\n\n✅(1) Samsung.\n✅(2) Xiaomi.\n✅(3) Motorola.\n✅(4) Oppo.\n✅(5) Tecno.\n✅(6) OTRA.\n\n\nEscriba el numero de la opción de su interés ');
-    
-
-//     registro[message.from] = { etapa: 0, numeroDocumento: '' };
-//     // registro[message.from] = true; // Register the phone number
-//     return;
-//   }
-
-//   if (MSGbien !== null) { // Check if MSGbien exists
-//     client.sendMessage(message.from, MSGbien);
-//     MSGbien = null; // Reset to a falsy value after sending
-//   } else {
-//     console.log('Error al verificar el mensaje de bienvenida');
-//   }
-
-//   // setTimeout(() => {
-//   //   delete registro[message.from];
-//   // }, 150 * 10000);
+client.on('message', async (message) => {
+  console.log(`Mensaje recibido de ${message.from}: ${message.body}`);
 
 
+  setInterval(() => {
+    console.log('Registros', registro);
+  }, 180000);
 
 
+  // Este codigo verifica que ya se envio el mensaje de bienvenida
+  if (!registro[message.from]) {
+    client.sendMessage(message.from, '¡Hola! 👋 Bienvenido a Creativos Code. Somos expertos en soluciones de comunicación empresarial, incluyendo estrategias de BOT de WhatsApp y automatizaciones web.\n\n  🚀📲 💼🌟\n\n Envía mensajes masivos y automatiza respuesta\n \n 1️⃣ Bot de WhatsApp \n \n 2️⃣ Soporte Técnico \n \n *Escriba el número de su solicitud*  \n\n\n www.creativoscode.com');
+    client.sendMessage(message.from, mediaFilejpg)
 
+    registro[message.from] = { etapa: 0, numeroDocumento: '' };
+    // registro[message.from] = true; // Register the phone number
+    return;
+  }
 
-//   switch (registro[message.from].etapa) {
+  if (MSGbien !== null) { // Check if MSGbien exists
+    client.sendMessage(message.from, MSGbien);
+    MSGbien = null; // Reset to a falsy value after sending
+  } else {
+    console.log('Error al verificar el mensaje de bienvenida');
+  }
+
+  // setTimeout(() => {
+  //   delete registro[message.from];
+  // }, 150 * 10000);
 
 
 
-//     case 0:
 
-//     if (!(message.body.toLowerCase() === "1" || message.body.toLowerCase() === "2"  || message.body.toLowerCase() === "3" || message.body.toLowerCase() === "4" || message.body.toLowerCase() === "5"  || message.body.toLowerCase() === "6")) {
-//       client.sendMessage(message.from, 'Por favor escribe un numero del 1 al 6');
-    
-//      } else if (message.body === ('1')) {
-//         client.sendMessage(message.from, ' ✅SAMSUNG \n\n1 •A04 64+4 $450.000 ( Con Cargador ) 🇨🇴\n\n2 •A05 128+4 $499.000🇨🇴 \n\n3 •A05s 128+4 1 Sim $500.0000🇨🇴\n\n4 •A05s 128+4 $535.0000🇨🇴\n\n5 •A15 256+8 $755.000🇨🇴\n\n6 •A25 5G 128+6  1 Sim $850.000🇨🇴\n\n7 •A35 5G 256+8  $1.150.000🇨🇴\n\n8 •A55 5G 256+8  $1.550.000🇨🇴');
-//         // client.sendMessage(message.from, mediaFilemp4)
-//         registro[message.from].etapa = 11;
-//       } else if (message.body === ('2')) {
-//         client.sendMessage(message.from, '✅XIAOMI \n\n1 •REDMI A3 64+3 $365.000 🇨🇴 \n\n2 •REDMI A3x 128+4 $455.000 🇨🇴\n\n3 •REDMI 13C 128+4 $499.000🇨🇴\n\n4 •REDMI 13C 256+4 $540.000🇨🇴\n\n5 •REDMI 13C 256+8 $599.000🇨🇴\n\n6 •REDMI 13  256+8 $715.000🇨🇴\n\n7 •NOTE 10S 128+6 $550.000🇨🇴\n\n8 •NOTE 12 128+6 $650.000 🇨🇴\n\n9 •NOTE 13 128+6 $675.000🇨🇴\n\n10 •NOTE 13 256+8 $790.000 🇨🇴\n\n11 •NOTE 13 PRO 256+8 $985.000🇨🇴\n\n12 •POCO M3 Pro 128+6 $695.000🇨🇴\n\n13 •POCO M5s 256+8 $799.000🇨🇴\n\n14 •POCO M6 Pro 512+12 $1.100.000🇨🇴');
-//         registro[message.from].etapa = 11;
 
-//       } else if (message.body === ('3')) {
-//         client.sendMessage(message.from, '✅MOTOROLA\n\n1 •MOTO E14 64+2+2 RAM BOOST $395.000 🇨🇴\n\n2 •MOTO G24 256+4+4 RAM BOOST $599.000 🇨🇴\n\n3 •MOTO G34 5G 256+8+8 RAM BOOST $799.000 🇨🇴\n\n•MOTO EDGE 50 FUSIÓN 5G 256+8+8 RAM BOOST 1.290.000 🇨🇴');
-//         registro[message.from].etapa = 11;
-     
-//       } else if (message.body === ('4')) {
-//         client.sendMessage(message.from, '✅OPPO (GARANTÍA 2 AÑOS + OBSEQUIO 🎁 AUDÍFONOS ) \n\n1 •A38 128+4 $639.000🇨🇴 (+4 Ram Hibrida+ AUDIFONOS)\n\n2 •A58 128+6 $725.000🇨🇴 (+6 Ram Hibrida+ AUDIFONOS)\n\n3 •A58 256+8 $849.000 🇨🇴 (+8 Ram Hibrida + AUDIFONOS )\n\n4 •A79 256+8 $999.000 🇨🇴 (+8 Ram Hibrida + AUDIFONOS )');
-//         registro[message.from].etapa = 11;
+
+  switch (registro[message.from].etapa) {
+
+
+
+    case 0:
+      const mensajeEnMinusculas = message.body.toLowerCase();
+      if (message.body === ('1')) {
+        client.sendMessage(message.from, ' 🚀 Mejora tu Atención al Cliente con Chat Bot de WhatsApp 📲\n\n¿Atención 24/7 y más eficiencia? Un chat Bot en WhatsApp lo hace posible. Estarás donde están tus clientes y resolverás sus consultas al instante, ¡sin parar!\n\n¿Listo para llevar tu empresa al siguiente nivel? Escribe INICIAR y comienza a aprovecharlo.\n\n\n? Escribe INICIAR');
+        // client.sendMessage(message.from, mediaFilemp4)
+        registro[message.from].etapa = 13;
+      } else if (message.body === ('2')) {
+        client.sendMessage(message.from, 'En un momento sera atendido por un asesor. gracias por elegirnos https://creativocode-production.up.railway.app/');
+        registro[message.from].etapa = 12;
+
+      } else if (message.body === ('3')) {
+        client.sendMessage(message.from, 'Somos una empresa con más de 5 años de experiencia en software y atención al usuario. Hemos brindado nuestros servicios en el sector Salud, y ahora estamos expandiendo nuestro enfoque para ayudar a todas las microempresas que desean implementar la automatización en sus interacciones con los usuarios. \n \n *visite* \n \nwwww.creativocode.com');
+        registro[message.from].etapa = 12;
+        delete registro[message.from];
+      } else if (message.body === ('4')) {
+        client.sendMessage(message.from, ' Realice el pago por medio de este link: \n \n  https://checkout.bold.co/payment/LNK_DKL4KXER5A ');
+        registro[message.from].etapa = 12;
+        delete registro[message.from];
+      } else if (message.body === ('5')) {
+        client.sendMessage(message.from, 'Diseñamos su página web, una plataforma moderna y fácil de usar para sus usuarios, por un costo de 850.000, que incluye el dominio por un año.');
+        registro[message.from].etapa = 12;
+        delete registro[message.from];
+      } else if (message.body === ('6')) {
+        client.sendMessage(message.from, 'Gestionamos sus redes sociales con diseños y publicaciones semanales por un costo de 350.000, que incluye 4 publicaciones semanales en imágenes y contenido en video');
+        registro[message.from].etapa = 12;
+        delete registro[message.from];
+      }
+      break;
+
+
+
+
+
+    case 12:
+      if (message.body.length > 2) {
+        // Verificar si el mensaje tiene más de 2 letras
+        client.sendMessage(message.from, 'Gracias por elegirnos');
+        registro[message.from].etapa = 21;
+        delete registro[message.from];
+      }
+      break;
+
+
+    case 13:
+      if (message.body === "INICIAR" || message.body === "iniciar" || message.body === "Iniciar") {
+        // Verificar si el mensaje tiene más de 2 letras
+        client.sendMessage(message.from, 'Queremos ser parte de tu empresa y acompañarte en este fascinante mundo de los bots. 🤖✨\n\n\nNos encantaría asesorarte a través de una llamada por Google Meet. Por favor, déjanos tu\n\nCorreo\n\nNombre\n\nFecha y hora\n\nque te funcione para agendar la llamada. ¡Quedamos atentos! 👥💼');
+        registro[message.from].etapa = 20;
+
+      }
+      break;
+
+    case 20:
+      if (message.body.length > 2) {
+        // Verificar si el mensaje tiene más de 2 letras
+        client.sendMessage(message.from, 'Somos Crea chat bot, en unas hora recibirás en tu correo la invitación con el link. ');
+        registro[message.from].etapa = 21;
       
-//       } else if (message.body === ('5')) {
-//         client.sendMessage(message.from, '✅TECNO \n\n1 •SPARK Go 2024 64+3 $390.000🇨🇴\n\n2 •POVA NEO  64+4 $390.000🇨🇴\n\n3 •SPARK 8P 128+4 $445.000🇨🇴\n\n4 •SPARK 20C 128+4 $480.000 🇨🇴\n\n5 •SPARK 20C 256+4 $570.000🇨🇴\n\n6 •SPARK 20 256+8 $599.000 🇨🇴\n\n7 •SPARK 20 PRO PLUS 256+8 $899.000🇨🇴\n\n8 •POVA 6 256+12 $999.000🇨🇴');
-//         registro[message.from].etapa = 11;
-   
-//       } else if (message.body === ('6')) {
-//       client.sendMessage(message.from, 'Por favor indíqueme en que marca esta interesa@');
-//       registro[message.from].etapa = 12;
- 
-//     }
-//       break;
-
-
-//       case 11:
-
-//       if (isNaN(message.body)) {
-//         client.sendMessage(message.from, 'Por favor escribe el número del celular de tu interes');
-    
-//       } else if (!isNaN(message.body)) {
-
-//         client.sendMessage(message.from, 'Quieres estrenar y pagar a cuotas.\n\nSI\n\nNO');
-//         registro[message.from].etapa = 13;
-
-//       }
-//         break;
-
-
-
-//         case 12:
-
-//      if (message.body.length > 2) {
-
-//         client.sendMessage(message.from, 'Quieres estrenar y pagar a cuotas.\n\nSI\n\nNO');
-//         registro[message.from].etapa = 13;
-
-//       }
-//         break;
-  
-  
-
-
-
-//     case 13:
-
-//     if (!(message.body.toLowerCase() === "si" || message.body.toLowerCase() === "no"  )) {
-//       client.sendMessage(message.from, 'Por favor escribe si o no');
-    
-//      } else if (message.body.toLowerCase() === "si" ) {
-//         // Verificar si el mensaje tiene más de 2 letras
-//         client.sendMessage(message.from, 'Un asesor experto te contactara en breve.');
-//         client.sendMessage('573026084428@c.us',  `Este Usuario está esperando un asesor ${message.from}`);
-//         registro[message.from].etapa = 20; 
-
-//       } else if (message.body.toLowerCase() === "no" ) {
-//         // Verificar si el mensaje tiene más de 2 letras
-//         client.sendMessage(message.from, '¿Lo deseas adquirir de contado con descuento?\n\nSI\n\nNO');
-//         registro[message.from].etapa = 21;
-
-//       }
-//       break;
+      }
+      break;
 
 
 
 
 
 
+  }
 
 
-//       case 21:
-
-//         if (!(message.body.toLowerCase() === "si" || message.body.toLowerCase() === "no"  )) {
-//           client.sendMessage(message.from, 'Por favor escribe si o no');
-        
-//          } else if (message.body.toLowerCase() === "si" ) {
-//             // Verificar si el mensaje tiene más de 2 letras
-//             client.sendMessage(message.from, 'Un asesor experto te contactara en breve.');
-//             client.sendMessage('573026084428@c.us',  `Este Usuario está esperando un asesor ${message.from}`);
-            
-            
-            
-//             registro[message.from].etapa = 20;
-    
-          
-          
-//           // Verifica y agrega el número que escribió "no"
-//            }  else if (message.body.toLowerCase() === "no" ) {
-//             client.sendMessage(message.from, 'Esperamos más adelante poder atenderte.');
-        
-//             // Intenta cargar el archivo existente, o crea una lista vacía si no existe
-//             let numerosNo = [];
-//             if (fs.existsSync(filePath)) {
-//                 const data = fs.readFileSync(filePath, 'utf-8');
-//                 if (data) {
-//                     numerosNo = JSON.parse(data);  // Carga los números existentes
-//                 }
-//             }
-        
-
-//             // Agregar el número a la lista si no está ya presente
-//             if (!numerosNo.includes(message.from)) {
-//                 numerosNo.push(message.from);  // Agrega el número
-        
-//                 delete registro[message.from];
-//                 // Guardar la lista actualizada en el archivo JSON
-//                 fs.writeFileSync(filePath, JSON.stringify(numerosNo, null, 2), 'utf-8');
-//             }
-//           }
-//       break;
-
-
-
-
-
-
-
-//  }
-
-
-// });
+});
 
 
 
@@ -408,6 +337,8 @@ let MSGenvio = true;
 
 // Desde aqui Robot de envio Mesivo
 
+
+
 client.on('auth_failure', (msg) => {
   console.error('Error de autenticación:', msg);
 });
@@ -418,6 +349,10 @@ client.on('ready', () => {
 });
 
 client.initialize();
+
+
+
+
 
 
 app.use(bodyParser.json()); // Usar body-parser para analizar JSON
@@ -470,43 +405,68 @@ app.post('/procesar', (req, res) => {
  
   
   
-  app.use(express.json());
-  
-  // ///////////////////////////////////////////////////////////////
-  
-  numbers.forEach((phoneNumber, index) => {
-    const phoneNumberWithSuffix = `${phoneNumber}@c.us`;
-    const message = messages[index] || ""; // Asigna una cadena vacía si el mensaje no está presente para ese número
-  
-    setTimeout(async () => {
-      try {
-        if (MSGenvio) {
-          await sendMedia(phoneNumberWithSuffix, 'image.jpg' );
-            await sendMedia(phoneNumberWithSuffix, '12.mp3' );
-         
-        }
-        await client.sendMessage(phoneNumberWithSuffix, message);
-  
-        const registro = {
-          mensaje: `Mensaje ${++messageCounter} enviado a ${phoneNumberWithSuffix}`,
-          numero: phoneNumberWithSuffix
-        };
-  
-        registros.push(registro); // Agregar el registro al array de registros
-        console.log(registro.mensaje.green);
-  
-        // Verifica si estás en el último elemento del array
-        if (index === numbers.length - 1) {
-          registros.push({ mensaje: 'Terminé de enviar los mensajes', numero: 'Oprima el botón para borrar el registro' });
-          console.log('Terminé de enviar');
-        }
-      } catch (error) {
-        console.log(`Error al enviar el mensaje a ${phoneNumberWithSuffix}: ${error.message}`.red);
-      }
-    }, 15000 * (index + 1));
-  });
-  
 
+
+// Función para guardar en JSON
+function guardarRegistroEnJSON(registros) {
+  fs.writeFileSync(registroPath, JSON.stringify(registros, null, 2), 'utf-8');
+}
+
+// Lee el archivo JSON (si existe), de lo contrario crea uno nuevo
+function leerRegistroDesdeJSON() {
+  if (fs.existsSync(registroPath)) {
+    const data = fs.readFileSync(registroPath, 'utf-8');
+    return JSON.parse(data);
+  } else {
+    return []; // Si el archivo no existe, retorna un array vacío
+  }
+}
+
+app.use(express.json());
+
+// Cargar los registros existentes (si los hay)
+let registros = leerRegistroDesdeJSON();
+
+numbers.forEach((phoneNumber, index) => {
+  const phoneNumberWithSuffix = `${phoneNumber}@c.us`;
+  const message = messages[index] || ""; // Asigna una cadena vacía si el mensaje no está presente para ese número
+
+  setTimeout(async () => {
+    try {
+      if (MSGenvio) {
+        await sendMedia(phoneNumberWithSuffix, 'image.jpg');
+      }
+      await client.sendMessage(phoneNumberWithSuffix, message);
+
+      // Crear el registro del mensaje
+      const registro = {
+        numero: phoneNumberWithSuffix,
+        mensajes: [
+          {
+            mensaje: message,
+            timestamp: new Date().toISOString()
+          }
+        ]
+      };
+
+      // Añadir el registro al array de registros
+      registros.push(registro);
+      console.log(`Mensaje ${messageCounter} enviado a ${phoneNumberWithSuffix}`.green);
+
+      // Guardar los registros en el archivo JSON después de cada envío
+      guardarRegistroEnJSON(registros);
+
+      // Verifica si estás en el último elemento del array
+      if (index === numbers.length - 1) {
+        registros.push({ mensaje: 'Terminé de enviar los mensajes', numero: 'Oprima el botón para borrar el registro' });
+        console.log('Terminé de enviar');
+        guardarRegistroEnJSON(registros); // Guardar los registros de nuevo
+      }
+    } catch (error) {
+      console.log(`Error al enviar el mensaje a ${phoneNumberWithSuffix}: ${error.message}`.red);
+    }
+  }, 15000 * (index + 1));
+});
 
 
 

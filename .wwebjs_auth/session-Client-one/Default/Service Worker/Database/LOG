@@ -1,3 +1,2 @@
-2024/09/25-19:28:02.541 8603 Reusing MANIFEST /Users/creativoscode/Documents/app/Reinas-/.wwebjs_auth/session-Client-one/Default/Service Worker/Database/MANIFEST-000001
-2024/09/25-19:28:02.541 8603 Recovering log #3
-2024/09/25-19:28:02.541 8603 Reusing old log /Users/creativoscode/Documents/app/Reinas-/.wwebjs_auth/session-Client-one/Default/Service Worker/Database/000003.log 
+2024/10/04-08:30:52.582 a203 Creating DB /Users/creativoscode/Documents/app/Reinas-/.wwebjs_auth/session-Client-one/Default/Service Worker/Database since it was missing.
+2024/10/04-08:30:52.593 a203 Reusing MANIFEST /Users/creativoscode/Documents/app/Reinas-/.wwebjs_auth/session-Client-one/Default/Service Worker/Database/MANIFEST-000001

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historial de Mensajes</title>
+  <style>
+
+body {
+    
+    background: linear-gradient(445deg, #073a64, #4d8b96);
+  
+
+  }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 2.5rem;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .contenedor-tabla {
+      margin: 0 auto;
+      width: 90%;
+      max-width: 1200px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: white;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    td {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 30px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      th, td {
+        padding: 10px 5px;
+        font-size: 0.9rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      button {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Historial de Mensajes</h1>
+
+  <div class="contenedor-tabla">
+    <table>
+      <thead>
+        <tr>
+          <th>Número</th>
+          <th>Mensaje</th>
+        </tr>
+      </thead>
+      <tbody id="contenedor-registros">
+        <!-- Los registros se cargarán dinámicamente aquí -->
+      </tbody>
+    </table>
+  </div>
+
+  <button id="descargar">Descargar como Excel</button>
+
+  <script>
+    async function cargarRegistros() {
+      const response = await fetch('/registros');
+      const registros = await response.json();
+      const contenedor = document.getElementById('contenedor-registros');
+
+      registros.forEach(registro => {
+        if (registro.numero !== "Oprima el botón para borrar el registro") {
+          const tr = document.createElement('tr');
+          
+          const numeroTd = document.createElement('td');
+          numeroTd.textContent = registro.numero;
+          
+          const mensajeTd = document.createElement('td');
+          mensajeTd.textContent = registro.mensajes.map(m => m.body).join(', '); // Solo mostrar "body"
+          
+          tr.appendChild(numeroTd);
+          tr.appendChild(mensajeTd);
+          contenedor.appendChild(tr);
+        }
+      });
+    }
+
+    document.getElementById('descargar').addEventListener('click', () => {
+      window.location.href = '/descargar-registros';
+    });
+
+    cargarRegistros();
+  </script>
+</body>
+</html>

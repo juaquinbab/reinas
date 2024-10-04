@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escanea el QR</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #333;
+    }
+
+    #qr-container img {
+      width: 250px;
+      height: 250px;
+      margin-top: 20px;
+    }
+
+    #status {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Escanea el código QR</h1>
+    <div id="status">Cargando...</div>
+    <div id="qr-container"></div>
+  </div>
+
+  <script>
+    const statusDiv = document.getElementById('status');
+    const qrContainer = document.getElementById('qr-container');
+
+    function fetchQrCode() {
+      fetch('/qr')
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'authenticated') {
+            qrContainer.innerHTML = '<h1>Cliente conectado</h1>';
+            statusDiv.textContent = '¡Conexión exitosa!';
+          } else if (data.status === 'qr') {
+            qrContainer.innerHTML = `<img src="${data.qrCode}" alt="Escanea el código QR">`;
+            statusDiv.textContent = 'Escanea el código QR con WhatsApp.';
+          } else {
+            qrContainer.innerHTML = '';
+            statusDiv.textContent = 'Esperando el código QR...';
+          }
+        })
+        .catch(error => {
+          console.error('Error al obtener el QR:', error);
+          statusDiv.textContent = 'Error al obtener el QR. Inténtalo más tarde.';
+        });
+    }
+
+    // Llama cada 5 segundos para verificar el estado o el QR
+    setInterval(fetchQrCode, 5000);
+  </script>
+</body>
+</html>
