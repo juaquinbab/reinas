@@ -108,7 +108,7 @@ client.on('message', async (message) => {
 
   // Este codigo verifica que ya se envio el mensaje de bienvenida
   if (!registro[message.from]) {
-    client.sendMessage(message.from, '¡Hola! 👋 Bienvenido a Creativos Code. Somos expertos en soluciones de comunicación empresarial, incluyendo estrategias de BOT de WhatsApp y automatizaciones web.\n\n  🚀📲 💼🌟\n\n Envía mensajes masivos y automatiza respuesta\n \n 1️⃣ Bot de WhatsApp \n \n 2️⃣ Soporte Técnico \n \n *Escriba el número de su solicitud*  \n\n\n www.creativoscode.com');
+    client.sendMessage(message.from, '¡Hola! 👋 Bienvenido a Creativos Code. Somos expertos en soluciones de comunicación empresarial, incluyendo estrategias de BOT de WhatsApp y automatizaciones web.\n\n  🚀📲 💼🌟\n\n Envía mensajes masivos y automatiza respuesta\n \n 1️⃣ Bot de WhatsApp \n \n 2️⃣ Soporte Técnico \n \n *Escriba el número de su solicitud*  \n\n\n https://creativoscode.com/');
     client.sendMessage(message.from, mediaFilejpg)
 
     registro[message.from] = { etapa: 0, numeroDocumento: '' };
