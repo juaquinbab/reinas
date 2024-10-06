@@ -82,6 +82,7 @@ let etapa = 0;
 
 const registro = {
 
+  
   '573217088282@c.us': { etapa: 0, numeroDocumento: '' },
   '5213315185300@c.us': { etapa: 0, numeroDocumento: '' },
   '573196693304@c.us': { etapa: 0, numeroDocumento: '' },
