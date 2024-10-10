@@ -72,7 +72,8 @@ client.on('authenticated', (session) => {
 
 
 
-  // const mediaFilemp3 = MessageMedia.fromFilePath(`./public/media/${'image.mp3'}`)
+   const mediaFilemp3 = MessageMedia.fromFilePath(`./public/media/${'inicio1.mp3'}`)
+   const mediaFilemp32 = MessageMedia.fromFilePath(`./public/media/${'inicio2.mp3'}`)
   // const mediaFilemp4 = MessageMedia.fromFilePath(`./public/media/${'image.mp4'}`)
   const mediaFilejpg = MessageMedia.fromFilePath(`./public/media/${'1.png'}`)
 
@@ -111,6 +112,7 @@ client.on('message', async (message) => {
   if (!registro[message.from]) {
     client.sendMessage(message.from, '¡Hola! 👋 Bienvenido a Creativos Code. Somos expertos en soluciones de comunicación empresarial, incluyendo estrategias de BOT de WhatsApp y automatizaciones web.\n\n  🚀📲 💼🌟\n\n Envía mensajes masivos y automatiza respuesta\n \n 1️⃣ Bot de WhatsApp \n \n 2️⃣ Soporte Técnico \n \n *Escriba el número de su solicitud*  \n\n\n https://creativoscode.com/');
     client.sendMessage(message.from, mediaFilejpg)
+    client.sendMessage(message.from, mediaFilemp3)
 
     registro[message.from] = { etapa: 0, numeroDocumento: '' };
     // registro[message.from] = true; // Register the phone number
@@ -184,6 +186,7 @@ client.on('message', async (message) => {
       if (message.body === "INICIAR" || message.body === "iniciar" || message.body === "Iniciar") {
         // Verificar si el mensaje tiene más de 2 letras
         client.sendMessage(message.from, 'Queremos ser parte de tu empresa y acompañarte en este fascinante mundo de los bots. 🤖✨\n\n\nNos encantaría asesorarte a través de una llamada por Google Meet. Por favor, déjanos tu\n\nCorreo\n\nNombre\n\nFecha y hora\n\nque te funcione para agendar la llamada. ¡Quedamos atentos! 👥💼');
+        client.sendMessage(message.from, mediaFilemp32)
         registro[message.from].etapa = 20;
 
       }
